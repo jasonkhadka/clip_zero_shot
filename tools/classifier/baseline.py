@@ -16,10 +16,10 @@ DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 def baseline_classifier_predict(
         dataset: CoCoDataset,
         classes: list,
-        clip_model: str = 'VIT-B/32',
+        clip_model: str = 'ViT-B/32',
         device: str = DEVICE,
 ):
-    model = clip.load(clip_model, device)
+    model, _ = clip.load(clip_model, device)
 
     # Get embeddings
     image_embeddings, labels = dataset.get_embeddings_and_labels(model)

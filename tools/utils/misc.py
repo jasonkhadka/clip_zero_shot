@@ -1,9 +1,10 @@
+from typing import List
 import torch
 import clip
 
 
 def embed_class_labels(
-        classes: list(str),
+        classes: List[str],
         model,
 ):
     device = next(model.parameters()).device

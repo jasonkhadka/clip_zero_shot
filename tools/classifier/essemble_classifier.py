@@ -7,14 +7,25 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.decomposition import PCA
 
 
-def create_essemble_classifier():
-    svm_model = svm.SVC(probability=True)
-    rf_classifier = RandomForestClassifier(max_depth=None, n_estimators=11)
-    lr_classifier = LogisticRegression(random_state=0, C=0.316, max_iter=1000)
+def create_essemble_classifier(
+        svm_config=None,
+        rf_config=None,
+        lr_config=None,
+):
+    if svm_config is None:
+        svm_config = dict(probability=True)
+    if rf_config is None:
+        rf_config = dict(max_depth=None, n_estimators=11)
+    if lr_config is None:
+        lr_config = dict(C=0.3, max_iter=1000)
+
+    svm_model = svm.SVC(**svm_config)
+    rf_classifier = RandomForestClassifier(**rf_config)
+    lr_classifier = LogisticRegression(**lr_config)
 
     clf = VotingClassifier(estimators=[
         ('lr', lr_classifier), ('rf', rf_classifier), ('gnb', svm_model)],
-        voting='hard', weights=[1, 1, 1],
+        voting='soft', weights=[1, 1, 1],
         flatten_transform=True)
 
     return clf
@@ -27,7 +38,7 @@ def ensemble_classifier_fit(
         pca=True,
         n_components=None,
 ):
-    pca_model = lambda x: x
+    pca_model = None
 
     if pca:
         if n_components is None:
@@ -44,13 +55,9 @@ def ensemble_classifier_fit(
 def ensemble_classifier_predict(
         classifier,
         test_embeddings,
-        pca_model=lambda x: x,
+        pca_model=None,
 ):
-    test_embeddings = pca_model(test_embeddings)
+    if pca_model:
+        test_embeddings = pca_model.transform(test_embeddings)
     predictions = classifier.predict(test_embeddings)
     return predictions
-
-
-
-
-
