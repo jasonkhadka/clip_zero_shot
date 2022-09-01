@@ -11,6 +11,7 @@ def create_essemble_classifier(
         svm_config=None,
         rf_config=None,
         lr_config=None,
+        voting='soft'
 ):
     if svm_config is None:
         svm_config = dict(probability=True)
@@ -25,7 +26,7 @@ def create_essemble_classifier(
 
     clf = VotingClassifier(estimators=[
         ('lr', lr_classifier), ('rf', rf_classifier), ('gnb', svm_model)],
-        voting='soft', weights=[1, 1, 1],
+        voting=voting, weights=[1, 1, 1],
         flatten_transform=True)
 
     return clf
