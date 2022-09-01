@@ -135,3 +135,6 @@ data/*
 
 # Notebook
 *.ipynb
+
+# intellij configs
+.idea/
