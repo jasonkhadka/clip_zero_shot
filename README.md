@@ -24,7 +24,3 @@ This project uses CLIP embeddings from text and images to detect classes in few 
 
 * Install clip as given on the CLIP repo: https://github.com/openai/CLIP
 * Install requirements from `requirement.txt`
-
-## Report
-Report is in `report.ipynb` notebook. It shows the training and uses of the detectors.
-
