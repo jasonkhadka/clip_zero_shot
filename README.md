@@ -46,16 +46,17 @@ python clip_organize.py -s path/to/target_directory/ -o path/to/output_directory
 ```
 
 #### Example with data in the repo
+First, unzip the file `boot_shoe_sandal.zip` in data directory, and then run the following script.
 ```
  python clip_organize.py -s 'data/boot_shoe_sandal/scrambled/' -c cow -c shoes -c sneaker -c sandals -c boots -c coat -c plane  -c tiger -c lion
 ```
-Initial data directory is as follows. `scrambled` directory contains 600 images of boots, shoes and sandals from cocodataset.
+Initial data directory tree is as given below. `boot_shoe_sandal` contains `scrambled` directory, which in turn contains 600 images of boots, shoes and sandals from coco-dataset.
 ```
 └── data
      └── boot_shoe_sandal
          └── scrambled
 ```
-The script classifies the images in the closest classes among the ones given and reorganizes them in a new directory.
+The script classifies target images in the closest candidate class and reorganizes them in a new directory as shown below.
 ```
 └── data
      └── boot_shoe_sandal
@@ -66,3 +67,4 @@ The script classifies the images in the closest classes among the ones given and
              ├── shoes
              └── sneaker
 ```
+Thus, if you have a directory with unclassified/unlabelled images, but you know what are the possible labels, you can use this script to organize your directory and label your data.
