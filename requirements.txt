@@ -9,3 +9,4 @@ torch==1.12.1
 torchvision==0.13.1
 tornado==6.2
 tqdm==4.64.0
+click==8.1.3

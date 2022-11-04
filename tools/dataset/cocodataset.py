@@ -8,11 +8,14 @@ from torch.utils.data import DataLoader
 
 
 class CoCoDataset:
-    def __init__(self, data_dir, fold='train', image_format='jpg', preprocess=None):
+    def __init__(self, data_dir, fold=None, image_format='jpg', preprocess=None):
         self.data_dir = Path(data_dir)
         self.fold = fold
         self.image_format = image_format
-        self._image_path = self.data_dir / fold
+        if fold is None:
+            self._image_path = self.data_dir
+        else:
+            self._image_path = self.data_dir / fold
         self.files, self.classes = self._get_files()
         self.preprocess = preprocess
         self.class_index = {c: index for index, c in enumerate(self.classes)}
